@@ -165,9 +165,151 @@ app.post('/CloudMonitoring', (req, res) => {
 
 });
 
+app.post('/TasaDeTransferencia', (req, res) => {
+
+    const TamañoArchivo = req.body.TamañoArchivo;
+    const UnidadTamañoArchivo = req.body.UnidadTamañoArchivo;
+    var TiempoTransferencia = req.body.TiempoTransferencia;
+    const UnidadTiempoTransferencia = req.body.UnidadTiempoTransferencia;
+    
+    var unidadd;
+    
+   
+    if (UnidadTamañoArchivo == "bit") {
+        unidadd = 'b/s';
+    }
+    if (UnidadTamañoArchivo == "byte") {
+        unidadd = 'B/s';
+         TamañoArchivo = TamañoArchivo * 8;
+    }
+
+    if (UnidadTamañoArchivo == "kilobyte") {
+        unidadd = 'Kb/s'
+         TamañoArchivo = TamañoArchivo * 8;
+    }
+
+    if (UnidadTamañoArchivo == "megabyte") {
+        unidadd = 'Mb/s'
+         TamañoArchivo = TamañoArchivo * 8;
+    }
+
+    if (UnidadTamañoArchivo == "gigabyte") {
+        unidadd = 'Gb/s'
+         TamañoArchivo = TamañoArchivo * 8;
+    }
+    if (UnidadTamañoArchivo == "terabyte" ) {
+        unidadd = 'Tb/s'
+        TamañoArchivo = TamañoArchivo * 8;
+    }
+    if (UnidadTiempoTransferencia == "segundos") {
+         TiempoTransferencia = TiempoTransferencia;
+    }
+    if (UnidadTiempoTransferencia == "minutos") {
+         TiempoTransferencia = TiempoTransferencia * 60;
+    }
+    if (UnidadTiempoTransferencia == "horas") {
+         TiempoTransferencia = TiempoTransferencia * 360;
+    }
+
+    const ctotal = TamañoArchivo / TiempoTransferencia;
+    
+   
+    res.send({
+       "TamañoArchivo": req.body.TamañoArchivo,
+       "UnidadTamañoArchivo": req.body.UnidadTamañoArchivo,
+       "TiempoTransferencia": req.body.TiempoTransferencia,
+       "UnidadTiempoTransferencia": req.body.UnidadTiempoTransferencia,
+       "TotalAnchoBanda": ctotal  
+    })
+
+});
+app.post('/TiempoDeTransferencia', (req, res) => {
+
+    var TamañoArchivoTiempo = req.body.TamañoArchivoTiempo;
+    const UnidadTamañoArchivoTiempo = req.body.UnidadTamañoArchivoTiempo;
+    var AnchoBanda = req.body.AnchoBanda;
+    const UnidadAnchoBanda = req.body.UnidadAnchoBanda;
+    
+              if (UnidadAnchoBanda == "bit") {
+                AnchoBanda = AnchoBanda;
+              }
+              if (UnidadAnchoBanda == "kilobit") {
+                AnchoBanda = AnchoBanda * 1024;
+              }
+              if (UnidadAnchoBanda == "megabit") {
+                AnchoBanda = AnchoBanda * 1024 * 1024;
+              }
+              if (UnidadAnchoBanda == "gigabit") {
+                AnchoBanda = AnchoBanda * 1024 * 1024 * 1024;
+              }
+              if (UnidadAnchoBanda == "terabit") {
+                AnchoBanda = AnchoBanda * 1024 * 1024 * 1024 * 1024;
+              }
+              if (UnidadTamañoArchivoTiempo == "bit") {
+                TamañoArchivoTiempo = TamañoArchivoTiempo;
+              }
+              if (UnidadTamañoArchivoTiempo == "byte") {
+                TamañoArchivoTiempo = TamañoArchivoTiempo * 8;
+              }
+              if (UnidadTamañoArchivoTiempo == "kilobyte") {
+                TamañoArchivoTiempo = TamañoArchivoTiempo * 8 * 1024;
+              }
+              if (UnidadTamañoArchivoTiempo == "megabyte") {
+                TamañoArchivoTiempo = TamañoArchivoTiempo * 8 * 1024 * 1024;
+              }
+              if (UnidadTamañoArchivoTiempo == "gigabyte") {
+                TamañoArchivoTiempo = TamañoArchivoTiempo * 8 * 1024 * 1024 * 1024;
+              }
+              if (UnidadTamañoArchivoTiempo == "terabyte") {
+                TamañoArchivoTiempo = TamañoArchivoTiempo * 8 * 1024 * 1024 * 1024 * 1024;
+              }
+
+              const ctotal = TamañoArchivoTiempo / AnchoBanda;
+              
+              function hora(ctotal) {
+                var year = Math.floor(ctotal / 32140800);
+                year = (year < 10) ? '0' + year : year;
+                var month = Math.floor(ctotal / 2678400) % 2678400 % 12;
+                month = (month < 10) ? '0' + month : month;
+                var day = Math.floor(ctotal / 86400) % 86400 % 31;
+                day = (day < 10) ? '0' + day : day;
+                var hour = Math.floor(ctotal / 3600) % 3600 % 24;
+                hour = (hour < 10) ? '0' + hour : hour;
+                var minute = Math.floor((ctotal / 60) % 60);
+                minute = (minute < 10) ? '0' + minute : minute;
+                var second = ctotal % 60;
+                second = (second < 10) ? '0' + second : second;
+                if (year == 0 && month == 0 && day == 0 && hour == 0 && minute == 0 && second > 0){
+                  titotal= second + ' ' + 'segundos';
+                }
+                if (year == 0 && month == 0 && day == 0 && hour == 0 && minute > 0 && second > 0){
+                  titotal= minute + ' ' + 'minutos'+ ' ' + second + ' ' + 'segundos';
+                }
+                if (year == 0 && month == 0  && day == 0 && hour > 0 && minute > 0 && second > 0){
+                  titotal= hour + ' ' + 'horas'+ ' ' + minute + ' ' + 'minutos'+ ' ' + second + ' ' + 'segundos';
+                }
+                if (year == 0 && month == 0  && day > 0 && hour > 0 && minute > 0 && second > 0){
+                  titotal= day + ' '+ 'dias' + ' ' + hour + ' ' + 'horas'+ ' ' + minute + ' ' + 'minutos'+ ' ' + second + ' ' + 'segundos';
+                }
+                if (year == 0 && month > 0  && day > 0 && hour > 0 && minute > 0 && second > 0){
+                  titotal= month + ' '+ 'meses' + ' ' +day + ' '+ 'dias' + ' ' + hour + ' ' + 'horas'+ ' ' + minute + ' ' + 'minutos'+ ' ' + second + ' ' + 'segundos';
+                }
+                if (year > 0 && month > 0  && day > 0 && hour > 0 && minute > 0 && second > 0){
+                  titotal=year + ' '+ 'años' + ' '+ month + ' '+ 'meses' + ' ' +day + ' '+ 'dias' + ' ' + hour + ' ' + 'horas'+ ' ' + minute + ' ' + 'minutos'+ ' ' + second + ' ' + 'segundos';
+                } 
+                return titotal;
+              }
+    
+    res.send({
+       "TamañoArchivo": req.body.TamañoArchivoTiempo ,
+       "UnidadTamañoArchivo": req.body.UnidadTamañoArchivoTiempo,
+       "AnchoBanda": req.body.AnchoBanda,
+       "UnidadAnchoBanda": req.body.UnidadAnchoBanda, 
+       "totaltiempotransferencia": hora(ctotal)
+    })
 
 
-
+});
 
 app.listen(port, () => {
     console.log('La aplicacion esta en linea!');
