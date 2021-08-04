@@ -28,7 +28,7 @@ app.post('/ActivityTracker', (req, res) => {
     var tdias = 0;
     var precio7dias = 1.72;
     var precio14dias = 2.30;
-    var precio30dias = 3.25;
+    var precio30dias = 3.45;
     var precio30Hdias = 4.60;
     if (!GBS) {
 
@@ -68,10 +68,10 @@ app.post('/LogAnalysis', (req, res) => {
     const pais = req.body.preciopais;
     // Constante de precios
     var tdias1 = 0;
-    var precio7dias1 = 1.72;
-    var precio14dias1 = 2.30;
-    var precio30dias1 = 3.25;
-    var precio30Hdias1 = 4.60;
+    var precio7dias = 1.72;
+    var precio14dias = 2.30;
+    var precio30dias = 3.45;
+    var precio30Hdias = 4.60;
     if (!GBS1) {
 
         return res.status(400).json({ error: 'No hay datos' });
@@ -125,29 +125,32 @@ app.post('/CloudMonitoring', (req, res) => {
     if (isNaN(api)) {
         api = 0;
     }
-    const hn = n * 720;
-    const hnl = nl * 720;
-    const hch = ch * 720;
-    const tst = st * 720;
+    const hn = n * 720; //nodos hora
+    const hnl = nl * 720; //nodos lite hora
+    const hch = ch * 720; //contenedores hora
+    const tst = st * 720; //series de tiempo hora
     const ptst = 0;
 
     if (tst <= 1000) {
-       let ptst = 0.000111;
+       let ptst = 0.00013;
     }
     if (tst > 1000 && tst <= 10000) {
-        let ptst = 0.000069;
+        let ptst = 0.000128;
     }
     if (tst > 10000 && tst <= 100000) {
-        let ptst = 0.000042;
+        let ptst = 0.000128;
+    }
+    if (tst > 100000) {
+        let ptst = 0.000128;
     }
     if (tst == 1) {
         let ptst = 0.000028;
     }
-    const tn = (hn * 0.048);
-    const tnl = (hnl * 0.013);
-    const tch = (hch * 0.000694);
-    const cst = ((tn + tnl) * tst * ptst);
-    const tapi = (api * 0.00001);
+    const tn = (hn * 0.06); //Precio nodo hora
+    const tnl = (hnl * 0.013); //Precio nodo lite hora
+    const tch = (hch * 0.000806); //Precio de contenedor hora
+    const cst = ((hn + hnl + hch) * tst * ptst); //calculo de series de tiempo
+    const tapi = (api * 0.00001); //Precio api call
     const suma = tn + tnl + tch + cst + tapi;
     const total = Math.round((suma) * 100) / 100;
 
@@ -171,10 +174,10 @@ app.post('/TasaDeTransferencia', (req, res) => {
     const UnidadTamañoArchivo = req.body.UnidadTamañoArchivo;
     var TiempoTransferencia = req.body.TiempoTransferencia;
     const UnidadTiempoTransferencia = req.body.UnidadTiempoTransferencia;
-    
+
     var unidadd;
-    
-   
+
+
     if (UnidadTamañoArchivo == "bit") {
         unidadd = 'b/s';
     }
@@ -212,14 +215,14 @@ app.post('/TasaDeTransferencia', (req, res) => {
     }
 
     const ctotal = TamañoArchivo / TiempoTransferencia;
-    
-   
+
+
     res.send({
        "TamañoArchivo": req.body.TamañoArchivo,
        "UnidadTamañoArchivo": req.body.UnidadTamañoArchivo,
        "TiempoTransferencia": req.body.TiempoTransferencia,
        "UnidadTiempoTransferencia": req.body.UnidadTiempoTransferencia,
-       "TotalAnchoBanda": ctotal  
+       "TotalAnchoBanda": ctotal
     })
 
 });
@@ -229,7 +232,7 @@ app.post('/TiempoDeTransferencia', (req, res) => {
     const UnidadTamañoArchivoTiempo = req.body.UnidadTamañoArchivoTiempo;
     var AnchoBanda = req.body.AnchoBanda;
     const UnidadAnchoBanda = req.body.UnidadAnchoBanda;
-    
+
               if (UnidadAnchoBanda == "bit") {
                 AnchoBanda = AnchoBanda;
               }
@@ -265,7 +268,7 @@ app.post('/TiempoDeTransferencia', (req, res) => {
               }
 
               const ctotal = TamañoArchivoTiempo / AnchoBanda;
-              
+
               function hora(ctotal) {
                 var year = Math.floor(ctotal / 32140800);
                 year = (year < 10) ? '0' + year : year;
@@ -296,15 +299,15 @@ app.post('/TiempoDeTransferencia', (req, res) => {
                 }
                 if (year > 0 && month > 0  && day > 0 && hour > 0 && minute > 0 && second > 0){
                   titotal=year + ' '+ 'años' + ' '+ month + ' '+ 'meses' + ' ' +day + ' '+ 'dias' + ' ' + hour + ' ' + 'horas'+ ' ' + minute + ' ' + 'minutos'+ ' ' + second + ' ' + 'segundos';
-                } 
+                }
                 return titotal;
               }
-    
+
     res.send({
        "TamañoArchivo": req.body.TamañoArchivoTiempo ,
        "UnidadTamañoArchivo": req.body.UnidadTamañoArchivoTiempo,
        "AnchoBanda": req.body.AnchoBanda,
-       "UnidadAnchoBanda": req.body.UnidadAnchoBanda, 
+       "UnidadAnchoBanda": req.body.UnidadAnchoBanda,
        "totaltiempotransferencia": hora(ctotal)
     })
 
