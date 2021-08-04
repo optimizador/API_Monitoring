@@ -19,10 +19,10 @@ app.get('/', (request, response) => {
 app.post('/ActivityTracker', (req, res) => {
 
     // Variables a llamar req.body.(#name de la variable)
-    const GBS = req.body.GB;
-    const dias = req.body.dias;
-    const region = req.body.region;
-    const pais = req.body.preciopais;
+    const GBS = req.query.GB;
+    const dias = req.query.dias;
+    const region = req.query.region;
+    const pais = req.query.preciopais;
 
     // Constante de precios
     var tdias = 0;
@@ -60,12 +60,12 @@ app.post('/ActivityTracker', (req, res) => {
 });
 
 app.post('/LogAnalysis', (req, res) => {
-
+    console.log(req);
     // Variables a llamar req.body.(#name de la variable)
-    const GBS1 = req.body.GB2;
-    const dias1 = req.body.dias1;
-    const region = req.body.region;
-    const pais = req.body.preciopais;
+    const GBS1 = req.query.GB;
+    const dias1 = req.query.dias;
+    const region = req.query.region;
+    const pais = req.query.preciopais;
     // Constante de precios
     var tdias1 = 0;
     var precio7dias = 1.72;
@@ -77,16 +77,16 @@ app.post('/LogAnalysis', (req, res) => {
         return res.status(400).json({ error: 'No hay datos' });
     }
     if (dias1 == "7dias") {
-        tdias1 = Math.round((GBS1 * precio7dias1) * 100) / 100;
+        tdias1 = Math.round((GBS1 * precio7dias) * 100) / 100;
     }
     if (dias1 == "14dias") {
-        tdias1 = Math.round((GBS1 * precio14dias1) * 100) / 100;
+        tdias1 = Math.round((GBS1 * precio14dias) * 100) / 100;
     }
     if (dias1 == "30dias") {
-        tdias1 = Math.round((GBS1 * precio30dias1) * 100) / 100;
+        tdias1 = Math.round((GBS1 * precio30dias) * 100) / 100;
     }
     if (dias1 == "30diash") {
-        tdias1 = Math.round((GBS1 * precio30Hdias1) * 100) / 100;
+        tdias1 = Math.round((GBS1 * precio30Hdias) * 100) / 100;
     }
 
     res.send({
