@@ -101,14 +101,15 @@ app.post('/LogAnalysis', (req, res) => {
 });
 
 app.post('/CloudMonitoring', (req, res) => {
+    //Log para cambios
+    var n = req.body.node;
+    var nl = req.body.litenode;
+    var ch = req.body.container;
+    var st = req.body.timeserieshour;
+    var api = req.body.apicall;
+    var region = req.body.region;
+    var pais = req.body.preciopais;
 
-    const n = req.body.node;
-    const nl = req.body.litenode;
-    const ch = req.body.container;
-    const st = req.body.timeserieshour;
-    const api = req.body.apicall;
-    const region = req.body.region;
-    const pais = req.body.preciopais;
 
     if (isNaN(n)) {
         n = 0;
