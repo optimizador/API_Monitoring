@@ -102,13 +102,13 @@ app.post('/LogAnalysis', (req, res) => {
 
 app.post('/CloudMonitoring', (req, res) => {
     //Log para cambios
-    var n = req.body.node;
-    var nl = req.body.litenode;
-    var ch = req.body.container;
-    var st = req.body.timeserieshour;
-    var api = req.body.apicall;
-    var region = req.body.region;
-    var pais = req.body.preciopais;
+    var n = req.query.node;
+    var nl = req.query.litenode;
+    var ch = req.query.container;
+    var st = req.query.timeserieshour;
+    var api = req.query.apicall;
+    var region = req.query.region;
+    var pais = req.query.preciopais;
 
 
     if (isNaN(n)) {
