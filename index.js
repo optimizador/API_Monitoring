@@ -230,7 +230,7 @@ var TamañoArchivobyte= TamañoArchivo;
        "TiempoTransferencia": req.query.TiempoTransferencia,
        "UnidadTiempoTransferencia": UnidadTiempoTransferencia,
       "Unidadporsegundo": unidadd,
-        "TotalAnchoBanda": ctotal
+        "TotalAnchoBanda": ctotal + unidadd
     })
 
 });
