@@ -183,32 +183,33 @@ app.post('/TasaDeTransferencia', (req, res) => {
 
     var unidadd;
 
+var TamañoArchivobyte= TamañoArchivo;
 
     if (UnidadTamañoArchivo == "bit") {
         unidadd = 'b/s';
     }
     if (UnidadTamañoArchivo == "byte") {
         unidadd = 'B/s';
-         TamañoArchivo = TamañoArchivo * 8;
+         TamañoArchivobyte = TamañoArchivo * 8;
     }
 
     if (UnidadTamañoArchivo == "kilobyte") {
         unidadd = 'Kb/s'
-         TamañoArchivo = TamañoArchivo * 8;
+         TamañoArchivobyte = TamañoArchivo * 8;
     }
 
     if (UnidadTamañoArchivo == "megabyte") {
         unidadd = 'Mb/s'
-         TamañoArchivo = TamañoArchivo * 8;
+         TamañoArchivobyte = TamañoArchivo * 8;
     }
 
     if (UnidadTamañoArchivo == "gigabyte") {
         unidadd = 'Gb/s'
-         TamañoArchivo = TamañoArchivo * 8;
+         TamañoArchivobyte = TamañoArchivo * 8;
     }
     if (UnidadTamañoArchivo == "terabyte" ) {
         unidadd = 'Tb/s'
-        TamañoArchivo = TamañoArchivo * 8;
+        TamañoArchivobyte = TamañoArchivo * 8;
     }
     if (UnidadTiempoTransferencia == "segundos") {
          TiempoTransferencia = TiempoTransferencia;
@@ -220,7 +221,7 @@ app.post('/TasaDeTransferencia', (req, res) => {
          TiempoTransferencia = TiempoTransferencia * 360;
     }
 
-    const ctotal = TamañoArchivo / TiempoTransferencia;
+    const ctotal = TamañoArchivobyte / TiempoTransferencia;
 
 
     res.send({
@@ -228,7 +229,8 @@ app.post('/TasaDeTransferencia', (req, res) => {
        "UnidadTamañoArchivo": UnidadTamañoArchivo,
        "TiempoTransferencia": req.query.TiempoTransferencia,
        "UnidadTiempoTransferencia": UnidadTiempoTransferencia,
-       "TotalAnchoBanda": ctotal
+      "Unidadporsegundo": unidadd,
+        "TotalAnchoBanda": ctotal
     })
 
 });
