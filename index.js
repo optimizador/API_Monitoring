@@ -225,9 +225,9 @@ app.post('/TasaDeTransferencia', (req, res) => {
 
     res.send({
        "TamañoArchivo": req.query.TamañoArchivo,
-       "UnidadTamañoArchivo": req.query.UnidadTamañoArchivo,
+       "UnidadTamañoArchivo": UnidadTamañoArchivo,
        "TiempoTransferencia": req.query.TiempoTransferencia,
-       "UnidadTiempoTransferencia": req.query.UnidadTiempoTransferencia,
+       "UnidadTiempoTransferencia": UnidadTiempoTransferencia,
        "TotalAnchoBanda": ctotal
     })
 
