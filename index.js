@@ -163,7 +163,12 @@ app.post('/CloudMonitoring', (req, res) => {
         "apicall": api,
         "region": region,
         "pais": pais,
-        "total":total
+        "total":total,
+        "nodehour":hn,
+        "nodelitehour":hn1,
+        "containerhour":hch,
+        "timehour":tst
+        
 
     })
 
