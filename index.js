@@ -154,11 +154,11 @@ app.post('/CloudMonitoring', (req, res) => {
     const tapi = (api * 0.00001); //Precio api call
     const suma = tn + tnl + tch + cst + tapi;
     const total = Math.round((suma) * 100) / 100;
-    var stotal= total;
-    var shn= hn;
-    var shnl= hnl;
-    var shch= hch;
-    var stst=tst;
+    var stotal= total.toString();
+var shn= hn.toString();
+var shnl= hnl.toString();
+var shch= hch.toString();
+var stst=tst.toString();
     res.send({
         "node": n,
         "litenode": nl,
