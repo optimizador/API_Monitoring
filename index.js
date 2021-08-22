@@ -167,11 +167,11 @@ var stst=tst.toString();
         "apicall": api,
         "region": region,
         "pais": pais,
-        "total":stotal,
-        "nodehour":shn,
-        "nodelitehour":shnl,
-        "containerhour":shch,
-        "timehour":stst
+        "total": stotal,
+        "nodehour": shn,
+        "nodelitehour": shnl,
+        "containerhour": shch,
+        "timehour": stst
         
 
     })
