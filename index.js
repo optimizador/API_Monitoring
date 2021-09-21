@@ -126,16 +126,16 @@ app.post('/CloudMonitoring', (req, res) => {
     if (isNaN(api)) {
         api = 0;
     }
+    var tst = (n+nl+ch)*st; //st * 720; series de tiempo hora
     const hn = n * 720; //nodos hora
     const hnl = nl * 720; //nodos lite hora
     const hch = ch * 720; //contenedores hora
-    var tst = st * 720; //series de tiempo hora
     var ptst = 0;
 
     const tn = (hn * 0.06); //Precio nodo hora
     const tnl = (hnl * 0.013); //Precio nodo lite hora
     const tch = (hch * 0.000806); //Precio de contenedor hora
-    tst=(n+nl+ch)*st; //calculo de series de tiempo
+    //tst=(n+nl+ch)*st; //calculo de series de tiempo
     
     if (tst <= 1000) {
        let ptst = 0.00013;
@@ -441,13 +441,13 @@ app.post('/CloudMonitoringTem', (req, res) => {
   const hn = n * 720; //nodos hora
   const hnl = nl * 720; //nodos lite hora
   const hch = ch * 720; //contenedores hora
-  var tst = st * 720; //series de tiempo hora
+  var tst =(n+nl+ch)*st; //calculo de series de tiempo
   const ptst = 0;
 
     const tn = (hn * 0.06); //Precio nodo hora
     const tnl = (hnl * 0.013); //Precio nodo lite hora
     const tch = (hch * 0.000806); //Precio de contenedor hora
-    tst=(n+nl+ch)*st; //calculo de series de tiempo
+   // tst=(n+nl+ch)*st; //calculo de series de tiempo
 
     
   if (tst <= 1000) {
@@ -474,7 +474,7 @@ app.post('/CloudMonitoringTem', (req, res) => {
       "node": n,
       "litenode": nl,
       "Container": ch,
-      "timeserieshour": st,
+      "timeserieshour": tst * 720,
       "apicall": api,
       "region": region,
       "pais": pais,
