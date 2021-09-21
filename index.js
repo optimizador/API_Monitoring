@@ -111,6 +111,13 @@ app.post('/CloudMonitoring', (req, res) => {
     var pais = req.query.preciopais;
 
 
+    console.log("nodos: "+n);
+    console.log("nodos lite: "+nl);
+    console.log("contenedores: "+ch);
+    console.log("series de tiempo: "+st);
+    console.log("api call: "+api);
+    console.log("region: "+region);
+    console.log("pais: "+pais);
     if (isNaN(n)) {
         n = 0;
     }
@@ -157,10 +164,24 @@ app.post('/CloudMonitoring', (req, res) => {
     const suma = tn + tnl + tch + cst + tapi;
     const total = Math.round((suma) * 100) / 100;
     var stotal= total.toString();
-var shn= hn.toString();
-var shnl= hnl.toString();
-var shch= hch.toString();
-var stst=(tst*720).toString();
+    var shn= hn.toString();
+    var shnl= hnl.toString();
+    var shch= hch.toString();
+    var stst=(tst*720).toString();
+    
+    console.log("nodos hora: "+hn);
+    console.log("nodos lite hora: "+hnl);
+    console.log("contenedores hora: "+hch);
+    console.log("series de tiempo hora resultante: "+tst);
+
+    console.log("nodos hora precio: "+tn);
+    console.log("nodos lite hora precio: "+tnl);
+    console.log("contenedores hora precio: "+tch);
+    console.log("series de tiempo hora precio: "+cst);
+    console.log("APi call precio: "+tapi);
+    console.log("Total sumatoria: "+total);
+
+
     res.send({
         "node": n,
         "litenode": nl,
