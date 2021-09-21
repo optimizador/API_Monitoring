@@ -132,6 +132,11 @@ app.post('/CloudMonitoring', (req, res) => {
     const tst = st * 720; //series de tiempo hora
     const ptst = 0;
 
+    const tn = (hn * 0.06); //Precio nodo hora
+    const tnl = (hnl * 0.013); //Precio nodo lite hora
+    const tch = (hch * 0.000806); //Precio de contenedor hora
+    tst=(n+nl+ch)*st; //calculo de series de tiempo
+    
     if (tst <= 1000) {
        let ptst = 0.00013;
     }
@@ -147,10 +152,7 @@ app.post('/CloudMonitoring', (req, res) => {
     if (tst == 1) {
         let ptst = 0.000028;
     }
-    const tn = (hn * 0.06); //Precio nodo hora
-    const tnl = (hnl * 0.013); //Precio nodo lite hora
-    const tch = (hch * 0.000806); //Precio de contenedor hora
-    const cst = ((hn + hnl + hch) * tst * ptst); //calculo de series de tiempo
+    const cst = tst * 720 * ptst; //calculo de series de tiempo
     const tapi = (api * 0.00001); //Precio api call
     const suma = tn + tnl + tch + cst + tapi;
     const total = Math.round((suma) * 100) / 100;
@@ -158,7 +160,7 @@ app.post('/CloudMonitoring', (req, res) => {
 var shn= hn.toString();
 var shnl= hnl.toString();
 var shch= hch.toString();
-var stst=tst.toString();
+var stst=(tst*720).toString();
     res.send({
         "node": n,
         "litenode": nl,
@@ -442,6 +444,12 @@ app.post('/CloudMonitoringTem', (req, res) => {
   const tst = st * 720; //series de tiempo hora
   const ptst = 0;
 
+    const tn = (hn * 0.06); //Precio nodo hora
+    const tnl = (hnl * 0.013); //Precio nodo lite hora
+    const tch = (hch * 0.000806); //Precio de contenedor hora
+    tst=(n+nl+ch)*st; //calculo de series de tiempo
+
+    
   if (tst <= 1000) {
      let ptst = 0.00013;
   }
@@ -457,10 +465,7 @@ app.post('/CloudMonitoringTem', (req, res) => {
   if (tst == 1) {
       let ptst = 0.000028;
   }
-  const tn = (hn * 0.06); //Precio nodo hora
-  const tnl = (hnl * 0.013); //Precio nodo lite hora
-  const tch = (hch * 0.000806); //Precio de contenedor hora
-  const cst = ((hn + hnl + hch) * tst * ptst); //calculo de series de tiempo
+  const cst = tst * 720 * ptst; //calculo de series de tiempo
   const tapi = (api * 0.00001); //Precio api call
   const suma = tn + tnl + tch + cst + tapi;
   const total = Math.round((suma) * 100) / 100;
