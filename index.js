@@ -130,7 +130,7 @@ app.post('/CloudMonitoring', (req, res) => {
     const hnl = nl * 720; //nodos lite hora
     const hch = ch * 720; //contenedores hora
     const tst = st * 720; //series de tiempo hora
-    const ptst = 0;
+    var ptst = 0;
 
     const tn = (hn * 0.06); //Precio nodo hora
     const tnl = (hnl * 0.013); //Precio nodo lite hora
